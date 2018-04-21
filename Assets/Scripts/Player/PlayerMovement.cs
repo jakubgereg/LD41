@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         var h = Input.GetAxis("Horizontal");
-        var v = Input.GetAxis("Vertical");
+        var v = 0f;
 
         var newh = Mathf.Clamp(h, -.7f, .7f);
         var newv = Mathf.Clamp(v, -.7f, .7f);
