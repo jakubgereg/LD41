@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,6 +36,11 @@ public class GameManager : MonoBehaviour
         OnGameModeChange += GameManager_OnGameModeChange;
         playerInventory.OnItemCollected += PlayerInventory_OnItemCollected;
 
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     //Returns how many slots are full
@@ -76,6 +82,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RestartLevel();
+        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             switch (CurrentMode)

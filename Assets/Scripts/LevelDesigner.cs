@@ -5,6 +5,8 @@ using UnityEngine;
 public class LevelDesigner : MonoBehaviour
 {
 
+    public Sprite spriteSwap;
+
     void Start()
     {
         var count = transform.childCount;
@@ -17,6 +19,10 @@ public class LevelDesigner : MonoBehaviour
 
             var whiteplatform = Instantiate(platform);
             whiteplatform.gameObject.layer = 1; //transparentFX layer
+            if (spriteSwap)
+            {
+                whiteplatform.GetComponent<SpriteRenderer>().sprite = spriteSwap;
+            }
             whiteplatform.GetComponent<SpriteRenderer>().color = Color.white;
             whiteplatform.position = new Vector3(whiteplatform.position.x, whiteplatform.position.y, whiteplatform.position.z - 0.1f);
             whiteplatform.SetParent(tr);
