@@ -13,6 +13,10 @@ public class PlayerMovement : MonoBehaviour
 
     bool isGrounded = false;
 
+    private float minSpeed = 0.5f;
+    private float maxSpeed = 8f;
+
+
     void Start()
     {
         _rigid2d = GetComponent<Rigidbody2D>();
@@ -38,14 +42,12 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         var h = Input.GetAxis("Horizontal");
-        var v = 0f;
 
-        var newh = Mathf.Clamp(h, -.7f, .7f);
-        var newv = Mathf.Clamp(v, -.7f, .7f);
+        Vector2 movement = new Vector2(h, 0f);
 
-        Vector2 movement = new Vector2(newh, newv);
+        SetMinMaxVelocity(movement);
 
-        _rigid2d.AddForce(movement * MovementSpeed * 10f);
+        Debug.Log(_rigid2d.velocity.x);
 
         if (Input.GetKey(KeyCode.Space) && isGrounded)
         {
@@ -54,5 +56,19 @@ public class PlayerMovement : MonoBehaviour
             _rigid2d.velocity = new Vector2(_rigid2d.velocity.x, JumpHeight);
         }
 
+    }
+
+    private void SetMinMaxVelocity(Vector2 movement)
+    {
+
+        if (Mathf.Abs(_rigid2d.velocity.x) > maxSpeed)
+        {
+            var mrClaper = Mathf.Clamp(_rigid2d.velocity.x, -maxSpeed, maxSpeed);
+            _rigid2d.velocity = new Vector2(mrClaper, _rigid2d.velocity.y);
+        }
+        else
+        {
+            _rigid2d.AddForce(movement * MovementSpeed * 10f);
+        }
     }
 }

@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public delegate void ItemCollected(GameObject uibox);
+    public event ItemCollected OnItemCollected;
+
+    //i think we dont need inventory of player for now
     public List<CollectableModel> inventory = new List<CollectableModel>();
 
     private int invernalCount = 0;
@@ -12,9 +16,13 @@ public class PlayerInventory : MonoBehaviour
         var attr = collision.GetComponent<CollectableAttributes>();
         if (attr)
         {
-            Debug.Log("im here");
-            Debug.Log(attr.Type);
-            inventory.Add(attr.GenerateModel());
+            if (OnItemCollected != null)
+            {
+                OnItemCollected(attr.GenerateModel().UIBox);
+
+            }
+
+            //inventory.Add(attr.GenerateModel());
             Destroy(collision.gameObject);
         }
     }

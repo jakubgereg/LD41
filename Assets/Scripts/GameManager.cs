@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,8 +12,39 @@ public class GameManager : MonoBehaviour
 
     public event ChangedGameMode OnGameModeChange;
 
+    [Header("Player Inventory")]
+    public PlayerInventory playerInventory;
+
+    [Header("Camera Switching")]
     public Camera PlatformerCamera;
     public Camera BuildingCamera;
+
+    [Header("Building phase")]
+    public int maxInventorySlots = 5;
+    public List<GameObject> AllSlots = new List<GameObject>();
+    public GameObject TopPanel;
+    public GameObject SlotPrefab;
+
+    private void Start()
+    {
+        GenerateSlots();
+        OnGameModeChange += GameManager_OnGameModeChange;
+        playerInventory.OnItemCollected += PlayerInventory_OnItemCollected;
+
+    }
+
+    private void PlayerInventory_OnItemCollected(GameObject uibox)
+    {
+        for (int i = 0; i < AllSlots.Count; i++)
+        {
+            if (AllSlots[i].transform.childCount <= 0)
+            {
+                AddItemToSlot(i, uibox);
+                break;
+            }
+        }
+
+    }
 
     private void Update()
     {
@@ -35,10 +67,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        OnGameModeChange += GameManager_OnGameModeChange;
-    }
+
 
     private void GameManager_OnGameModeChange(GameModes gm)
     {
@@ -54,6 +83,26 @@ public class GameManager : MonoBehaviour
             PlatformerCamera.gameObject.SetActive(false);
             BuildingCamera.gameObject.SetActive(true);
             FrezzeGame();
+        }
+    }
+
+    //Autogenerate all slots
+    private void GenerateSlots()
+    {
+        for (int i = 0; i < maxInventorySlots; i++)
+        {
+            var slot = Instantiate(SlotPrefab);
+            slot.transform.parent = TopPanel.transform;
+            AllSlots.Add(slot);
+        }
+    }
+
+    private void AddItemToSlot(int id, GameObject uibox)
+    {
+        if (id < AllSlots.Count)
+        {
+            var box = Instantiate(uibox);
+            box.transform.parent = AllSlots[id].transform;
         }
     }
 

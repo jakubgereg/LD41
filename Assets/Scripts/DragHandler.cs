@@ -45,6 +45,19 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         startParent = null;
         transform.position = eventData.position;
 
+
+        //how far you are dropping it
+        var distance = Mathf.Abs(transform.position.y - startPosition.y);
+
+        Debug.Log(distance);
+
+        if (distance < 50)
+        {
+            transform.position = startPosition;
+            return;
+        }
+
+
         var pos = Camera.main.ScreenToWorldPoint(eventData.position);
 
         Vector3 newpost = new Vector3(pos.x, pos.y, 1);
