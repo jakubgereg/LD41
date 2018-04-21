@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
@@ -9,13 +10,17 @@ public class PlayerMovement : MonoBehaviour
     [Range(.5f, 2f)]
     public float MovementSpeed = 1f;
 
-    public float JumpHeight = 1f;
+    public float JumpHeight = 8f;
 
-    public bool isGrounded = false;
+    private float minVelocityX = 0.5f;
 
-    private float minSpeed = 0.5f;
-    private float maxSpeedX = 8f;
+    private float maxVelocityX = 7f;
+
     private float maxSpeedY = 10f;
+
+    public GroundCheck groundCheck;
+
+    public bool IsGrounded = false;
 
 
     void Start()
@@ -26,27 +31,25 @@ public class PlayerMovement : MonoBehaviour
 
     //error here in detecting ground :(
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGrounded = true;
-        }
-    }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void Update()
     {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGrounded = true;
-        }
-    }
+        IsGrounded = groundCheck.CheckIsGrounded();
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
         {
-            isGrounded = false;
+            IsGrounded = false;
+            _rigid2d.velocity = new Vector2(_rigid2d.velocity.x, JumpHeight);
+        }
+
+        //here we are multiplying gravity when player is in air
+        if (IsGrounded)
+        {
+            _rigid2d.gravityScale = 1f;
+        }
+        else
+        {
+            _rigid2d.gravityScale = 1.7f;
         }
     }
 
@@ -56,20 +59,11 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 movement = new Vector2(h, 0f);
 
-        SetMinMaxVelocity(movement);
-
-        //Debug.Log(_rigid2d.velocity.x);
-
-        if (Input.GetKey(KeyCode.Space) && isGrounded)
-        {
-            isGrounded = false;
-
-            _rigid2d.velocity = new Vector2(_rigid2d.velocity.x, JumpHeight);
-        }
-
+        SetMaxVelocity(movement);
     }
 
-    private void SetMinMaxVelocity(Vector2 movement)
+
+    private void SetMaxVelocity(Vector2 movement)
     {
         if (Mathf.Abs(_rigid2d.velocity.y) > maxSpeedY)
         {
@@ -78,9 +72,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (Mathf.Abs(_rigid2d.velocity.x) > maxSpeedX)
+
+        if (Mathf.Abs(_rigid2d.velocity.x) > maxVelocityX)
         {
-            var mrClaper = Mathf.Clamp(_rigid2d.velocity.x, -maxSpeedX, maxSpeedX);
+            var mrClaper = Mathf.Clamp(_rigid2d.velocity.x, -maxVelocityX, maxVelocityX);
             _rigid2d.velocity = new Vector2(mrClaper, _rigid2d.velocity.y);
         }
         else

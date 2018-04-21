@@ -23,6 +23,7 @@ public class LevelDesigner : MonoBehaviour
             {
                 whiteplatform.GetComponent<SpriteRenderer>().sprite = spriteSwap;
             }
+            whiteplatform.GetComponent<BoxCollider2D>().enabled = false;
             whiteplatform.GetComponent<SpriteRenderer>().color = Color.white;
             whiteplatform.position = new Vector3(whiteplatform.position.x, whiteplatform.position.y, whiteplatform.position.z - 0.1f);
             whiteplatform.SetParent(tr);
