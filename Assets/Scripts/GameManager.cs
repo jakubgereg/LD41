@@ -23,7 +23,11 @@ public class GameManager : MonoBehaviour
     public int maxInventorySlots = 5;
     public List<GameObject> AllSlots = new List<GameObject>();
     public GameObject TopPanel;
+    public GameObject BuildingPhasePanel;
     public GameObject SlotPrefab;
+
+
+    private int slotCounter = 0;
 
     private void Start()
     {
@@ -33,8 +37,32 @@ public class GameManager : MonoBehaviour
 
     }
 
+    //Returns how many slots are full
+    public int GetOccupiedSlotCounter()
+    {
+        var result = 0;
+        for (int i = 0; i < AllSlots.Count; i++)
+        {
+            if (AllSlots[i].transform.childCount > 0)
+            {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    public bool AreSlotsFull()
+    {
+        if (GetOccupiedSlotCounter() >= maxInventorySlots)
+        {
+            return true;
+        }
+        return false;
+    }
+
     private void PlayerInventory_OnItemCollected(GameObject uibox)
     {
+        //add item to empty slot availiable
         for (int i = 0; i < AllSlots.Count; i++)
         {
             if (AllSlots[i].transform.childCount <= 0)
@@ -48,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             switch (CurrentMode)
             {
@@ -76,12 +104,14 @@ public class GameManager : MonoBehaviour
             //if its changed to platformer
             PlatformerCamera.gameObject.SetActive(true);
             BuildingCamera.gameObject.SetActive(false);
+            BuildingPhasePanel.SetActive(false);
             UnFreezeGame();
         }
         else
         {
             PlatformerCamera.gameObject.SetActive(false);
             BuildingCamera.gameObject.SetActive(true);
+            BuildingPhasePanel.SetActive(true);
             FrezzeGame();
         }
     }
@@ -92,7 +122,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < maxInventorySlots; i++)
         {
             var slot = Instantiate(SlotPrefab);
-            slot.transform.parent = TopPanel.transform;
+            slot.transform.SetParent(TopPanel.transform);
             AllSlots.Add(slot);
         }
     }
@@ -102,7 +132,7 @@ public class GameManager : MonoBehaviour
         if (id < AllSlots.Count)
         {
             var box = Instantiate(uibox);
-            box.transform.parent = AllSlots[id].transform;
+            box.transform.SetParent(AllSlots[id].transform);
         }
     }
 

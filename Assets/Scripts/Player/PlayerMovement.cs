@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
         SetMinMaxVelocity(movement);
 
-        Debug.Log(_rigid2d.velocity.x);
+        //Debug.Log(_rigid2d.velocity.x);
 
         if (Input.GetKey(KeyCode.Space) && isGrounded)
         {

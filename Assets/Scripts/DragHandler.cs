@@ -41,15 +41,12 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log(eventData.position);
         startParent = null;
         transform.position = eventData.position;
 
 
         //how far you are dropping it
         var distance = Mathf.Abs(transform.position.y - startPosition.y);
-
-        Debug.Log(distance);
 
         if (distance < 50)
         {
