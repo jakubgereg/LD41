@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             switch (CurrentMode)
             {
@@ -138,7 +138,6 @@ public class GameManager : MonoBehaviour
 
     private void FrezzeGame()
     {
-        Debug.Log("freeze");
         Time.timeScale = 0f;
     }
 

@@ -17,21 +17,38 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         itemDragged = gameObject;
         startPosition = transform.position;
         startParent = transform.parent;
-        //GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        //throw new System.NotImplementedException();
         transform.position = Input.mousePosition;
     }
 
+
+    //this is not working as i wanted when camera is moving grid is useless
+    private Vector3 XConvertToGridPosition(Vector3 input)
+    {
+        Vector3 result;
+        int size = 35;
+
+
+        var new_x = Mathf.Round(input.x / size);
+        var new_y = Mathf.Round(input.y / size);
+
+
+
+        result = new Vector3(new_x * size, new_y * size, input.z);
+
+
+        Debug.Log(result);
+        return result;
+
+    }
 
 
     public void OnEndDrag(PointerEventData eventData)
     {
         itemDragged = null;
-        //GetComponent<CanvasGroup>().blocksRaycasts = true;
         if (transform.parent == startParent)
         {
             transform.position = startPosition;
@@ -54,8 +71,9 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             return;
         }
 
+        var np = eventData.position;
 
-        var pos = Camera.main.ScreenToWorldPoint(eventData.position);
+        var pos = Camera.main.ScreenToWorldPoint(np);
 
         Vector3 newpost = new Vector3(pos.x, pos.y, 1);
 

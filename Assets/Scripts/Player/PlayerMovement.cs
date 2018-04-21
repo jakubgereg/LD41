@@ -11,10 +11,11 @@ public class PlayerMovement : MonoBehaviour
 
     public float JumpHeight = 1f;
 
-    bool isGrounded = false;
+    public bool isGrounded = false;
 
     private float minSpeed = 0.5f;
-    private float maxSpeed = 8f;
+    private float maxSpeedX = 8f;
+    private float maxSpeedY = 10f;
 
 
     void Start()
@@ -22,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
         _rigid2d = GetComponent<Rigidbody2D>();
 
     }
+
+    //error here in detecting ground :(
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -60,10 +63,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetMinMaxVelocity(Vector2 movement)
     {
-
-        if (Mathf.Abs(_rigid2d.velocity.x) > maxSpeed)
+        if (Mathf.Abs(_rigid2d.velocity.y) > maxSpeedY)
         {
-            var mrClaper = Mathf.Clamp(_rigid2d.velocity.x, -maxSpeed, maxSpeed);
+            var mrClaper = Mathf.Clamp(_rigid2d.velocity.y, -maxSpeedY, maxSpeedY);
+            _rigid2d.velocity = new Vector2(_rigid2d.velocity.x, mrClaper);
+        }
+
+
+        if (Mathf.Abs(_rigid2d.velocity.x) > maxSpeedX)
+        {
+            var mrClaper = Mathf.Clamp(_rigid2d.velocity.x, -maxSpeedX, maxSpeedX);
             _rigid2d.velocity = new Vector2(mrClaper, _rigid2d.velocity.y);
         }
         else
