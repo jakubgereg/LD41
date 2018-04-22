@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentMode: 0
-  playerInventory: {fileID: 0}
+  player: {fileID: 0}
   PlatformerCamera: {fileID: 0}
   BuildingCamera: {fileID: 0}
   maxInventorySlots: 3

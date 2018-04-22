@@ -22,10 +22,17 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded = false;
 
+    private bool FlippedX = false;
+
+    private SpriteRenderer _spriteRenderer;
+
+    private Animator _playerAnimator;
 
     void Start()
     {
         _rigid2d = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _playerAnimator = GetComponent<Animator>();
 
     }
 
@@ -58,6 +65,18 @@ public class PlayerMovement : MonoBehaviour
         var h = Input.GetAxis("Horizontal");
 
         Vector2 movement = new Vector2(h, 0f);
+
+        _playerAnimator.SetFloat("Speed", Mathf.Abs(h));
+
+        if (movement.x < 0f)
+            FlippedX = true;
+        else if (movement.x > 0f)
+        {
+            FlippedX = false;
+        }
+
+
+        _spriteRenderer.flipX = FlippedX;
 
         SetMaxVelocity(movement);
     }

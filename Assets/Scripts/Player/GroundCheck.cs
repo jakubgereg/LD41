@@ -3,7 +3,7 @@
 public class GroundCheck : MonoBehaviour
 {
     public bool IsGrounded = false;
-    private float distanceFromGround = .3f;
+    private float distanceFromGround = .2f;
     public LayerMask layer;
 
     private void FixedUpdate()

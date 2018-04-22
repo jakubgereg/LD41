@@ -16,6 +16,10 @@ public class CameraFollow : MonoBehaviour
     private void Start()
     {
         _cam = GetComponent<Camera>();
+        if (!ToFollow)
+        {
+            Debug.LogWarning("Camera is not following player, please check assign player to CameraFollow script");
+        }
     }
 
 

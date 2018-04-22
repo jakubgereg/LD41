@@ -13,7 +13,18 @@ public class CameraStill : MonoBehaviour
 
     void Start()
     {
-        Reposition();
+
+        if (FocusOn)
+        {
+            Reposition();
+        }
+        else
+        {
+            Debug.LogWarning("FocusOn on CameraStill script is not defined! Please assign player to it");
+        }
+
+
+
     }
 
     void Reposition()

@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
 
     public event ChangedGameMode OnGameModeChange;
 
-    [Header("Player Inventory")]
-    public PlayerInventory playerInventory;
+    [Header("Player")]
+    public GameObject player;
 
     [Header("Camera Switching")]
     public Camera PlatformerCamera;
@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
     public GameObject BuildingPhasePanel;
     public GameObject SlotPrefab;
 
+    private PlayerInventory playerInventory;
+    private ZoneDetect playerZoneDetector;
+
 
     private int slotCounter = 0;
 
@@ -34,8 +37,24 @@ public class GameManager : MonoBehaviour
     {
         GenerateSlots();
         OnGameModeChange += GameManager_OnGameModeChange;
-        playerInventory.OnItemCollected += PlayerInventory_OnItemCollected;
 
+        playerInventory = player.GetComponent<PlayerInventory>();
+        playerZoneDetector = player.GetComponent<ZoneDetect>();
+
+        playerInventory.OnItemCollected += PlayerInventory_OnItemCollected;
+        playerZoneDetector.OnEndZoneReached += PlayerZoneDetector_OnEndZoneReached;
+        playerZoneDetector.OnEndOfLevelReached += PlayerZoneDetector_OnEndOfLevelReached;
+
+    }
+
+    private void PlayerZoneDetector_OnEndOfLevelReached()
+    {
+        Debug.Log("Switching to new level");
+    }
+
+    private void PlayerZoneDetector_OnEndZoneReached()
+    {
+        Debug.Log("Doing something with start");
     }
 
     public void RestartLevel()
