@@ -14,6 +14,12 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private GameObject placing;
     private Color placing_color;
 
+    private AudioManager _am;
+
+    void Start()
+    {
+        _am = FindObjectOfType<AudioManager>();
+    }
 
     //origin needs to be world position
     private GameObject InstantianteGameObject(Vector2 origin)
@@ -76,18 +82,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         var wp = Camera.main.ScreenToWorldPoint(input);
 
         result = new Vector3(wp.x, wp.y, -1);
-        //int size = 35;
 
-
-        //var new_x = Mathf.Round(input.x / size);
-        //var new_y = Mathf.Round(input.y / size);
-
-
-
-        //result = new Vector3(new_x * size, new_y * size, input.z);
-
-
-        //Debug.Log(result);
         return result;
 
     }
@@ -104,6 +99,8 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             Destroy(placing);
             placing = null;
+            //_as.clip = failPick;
+            _am.PlaySound(_am.failerPlacedBox);
             //destroy object
         }
         else
@@ -113,6 +110,10 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 transform.position = startPosition;
             }
             placing.GetComponent<BoxCollider2D>().enabled = true;
+
+            //_as.clip = succesPick;
+            _am.PlaySound(_am.succesPlacedBox);
+
             Destroy(gameObject);
         }
 

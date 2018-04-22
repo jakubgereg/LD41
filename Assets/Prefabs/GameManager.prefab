@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentMode: 0
   player: {fileID: 0}
+  NextLevelName: 2
   PlatformerCamera: {fileID: 0}
   BuildingCamera: {fileID: 0}
   maxInventorySlots: 3
@@ -60,3 +61,5 @@ MonoBehaviour:
   TopPanel: {fileID: 0}
   BuildingPhasePanel: {fileID: 0}
   SlotPrefab: {fileID: 1784293025761912, guid: 75710beaed7659642870818d46574f4d, type: 2}
+  EndZoneSpriteChange: {fileID: 21300000, guid: b50c58aa36df0aa45b32d6286d40e7fe,
+    type: 3}

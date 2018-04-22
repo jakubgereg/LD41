@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114722211293569322}
   - component: {fileID: 114130440681599950}
   - component: {fileID: 114590739447597454}
-  - component: {fileID: 95844020394000616}
+  - component: {fileID: 95383123986998946}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -88,7 +88,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.8
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -108,7 +108,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.008342743, y: -0.09839392}
+  m_Offset: {x: 0.056119442, y: -0.09839392}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -119,9 +119,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.66662407, y: 2.1308575}
+  m_Size: {x: 0.9613085, y: 2.1308575}
   m_EdgeRadius: 0
---- !u!95 &95844020394000616
+--- !u!95 &95383123986998946
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 1
-  JumpHeight: 7
+  JumpHeight: 9
   groundCheck: {fileID: 114254813807023898}
   IsGrounded: 0
 --- !u!212 &212877495708156172

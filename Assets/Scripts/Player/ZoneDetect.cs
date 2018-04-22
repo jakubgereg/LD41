@@ -8,7 +8,7 @@ public class ZoneDetect : MonoBehaviour
     public bool IsEndZoneReached;
     public bool IsEndOfLevelReached;
 
-    public delegate void EndZoneReached();
+    public delegate void EndZoneReached(GameObject zone);
     public event EndZoneReached OnEndZoneReached;
     public event EndZoneReached OnEndOfLevelReached;
 
@@ -22,7 +22,7 @@ public class ZoneDetect : MonoBehaviour
             {
                 IsEndZoneReached = true;
                 if (OnEndZoneReached != null)
-                    OnEndZoneReached();
+                    OnEndZoneReached(attr.gameObject);
             }
             else
             {
@@ -30,7 +30,7 @@ public class ZoneDetect : MonoBehaviour
                 if (IsEndZoneReached)
                 {
                     if (OnEndOfLevelReached != null)
-                        OnEndOfLevelReached();
+                        OnEndOfLevelReached(attr.gameObject);
                 }
             }
 
