@@ -28,7 +28,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private Vector3 GetWorldPosition(Vector2 origin)
     {
         var pos = Camera.main.ScreenToWorldPoint(origin);
-        Vector3 newpost = new Vector3(pos.x, pos.y, 1);
+        Vector3 newpost = new Vector3(pos.x, pos.y, -1);
 
         return newpost;
     }
@@ -75,7 +75,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         var wp = Camera.main.ScreenToWorldPoint(input);
 
-        result = new Vector3(wp.x, wp.y, 0);
+        result = new Vector3(wp.x, wp.y, -1);
         //int size = 35;
 
 

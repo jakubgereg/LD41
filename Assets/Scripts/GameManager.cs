@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     [Header("Player")]
     public GameObject player;
 
+    [Header("Level")]
+    public string NextLevelName;
+
     [Header("Camera Switching")]
     public Camera PlatformerCamera;
     public Camera BuildingCamera;
@@ -35,6 +38,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (NextLevelName == null)
+            Debug.LogError("GameManager doesnt have next level specified");
+
         GenerateSlots();
         OnGameModeChange += GameManager_OnGameModeChange;
 
@@ -50,6 +56,8 @@ public class GameManager : MonoBehaviour
     private void PlayerZoneDetector_OnEndOfLevelReached()
     {
         Debug.Log("Switching to new level");
+
+        SceneManager.LoadScene(NextLevelName);
     }
 
     private void PlayerZoneDetector_OnEndZoneReached()

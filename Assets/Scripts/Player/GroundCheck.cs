@@ -3,7 +3,7 @@
 public class GroundCheck : MonoBehaviour
 {
     public bool IsGrounded = false;
-    private float distanceFromGround = .2f;
+    private float distanceFromGround = .1f;
     public LayerMask layer;
 
     private void FixedUpdate()
@@ -18,11 +18,8 @@ public class GroundCheck : MonoBehaviour
         float distance = distanceFromGround;
 
 
-
-        Debug.DrawRay(position, direction, Color.green);
-
         //RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, layer);
-        RaycastHit2D hit = Physics2D.BoxCast(position, new Vector2(0.5f, 1f), 0f, direction, distance, layer);
+        RaycastHit2D hit = Physics2D.BoxCast(position, new Vector2(.5f, .5f), 0f, direction, distance, layer);
         if (hit.collider != null)
         {
             return true;

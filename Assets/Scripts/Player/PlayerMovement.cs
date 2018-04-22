@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float maxVelocityX = 7f;
 
-    private float maxSpeedY = 10f;
+    private float maxSpeedY = 12f;
 
     public GroundCheck groundCheck;
 
