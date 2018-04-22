@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float maxVelocityX = 7f;
 
-    private float maxSpeedY = 12f;
+    private float maxSpeedY = 14f;
 
     public GroundCheck groundCheck;
 
@@ -27,12 +27,17 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
 
     private Animator _playerAnimator;
+    private AudioSource _playerAudioSource;
+
+    public AudioClip JumpSound;
+    public AudioClip WalkSound;
 
     void Start()
     {
         _rigid2d = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _playerAnimator = GetComponent<Animator>();
+        _playerAudioSource = GetComponent<AudioSource>();
 
     }
 
@@ -45,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
         {
+            _playerAudioSource.clip = JumpSound;
+            _playerAudioSource.Play();
             IsGrounded = false;
             _rigid2d.velocity = new Vector2(_rigid2d.velocity.x, JumpHeight);
         }
@@ -69,12 +76,18 @@ public class PlayerMovement : MonoBehaviour
         _playerAnimator.SetFloat("Speed", Mathf.Abs(h));
 
         if (movement.x < 0f)
+        {
             FlippedX = true;
+        }
         else if (movement.x > 0f)
         {
             FlippedX = false;
         }
 
+        if (movement.x != 0f)
+        {
+            //playwalking
+        }
 
         _spriteRenderer.flipX = FlippedX;
 

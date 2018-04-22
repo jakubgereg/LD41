@@ -52,7 +52,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -134,3 +134,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   succesPlacedBox: {fileID: 8300000, guid: d371dd143fb32294c898a973af14d6ee, type: 3}
   failerPlacedBox: {fileID: 8300000, guid: a806a0761c137294ba567e9ef8fa15a3, type: 3}
+  pizzadelivered: {fileID: 8300000, guid: feccc7c917543364ea94390d4bcdd983, type: 3}

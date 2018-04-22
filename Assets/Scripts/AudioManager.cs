@@ -6,10 +6,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip succesPlacedBox;
     public AudioClip failerPlacedBox;
-    public AudioClip jump;
-    public AudioClip pickingbox;
     public AudioClip pizzadelivered;
-    public AudioClip walk;
 
 
     private AudioSource _as;

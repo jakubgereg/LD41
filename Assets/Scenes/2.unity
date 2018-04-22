@@ -250,51 +250,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 212877495708156172, guid: 2ea1095ce08f63d4eb684860d73d06a1,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300032, guid: d2f7dba171ac47141aae6279aa428402,
-        type: 3}
-    - target: {fileID: 61055928594087590, guid: 2ea1095ce08f63d4eb684860d73d06a1,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: -0.09839392
-      objectReference: {fileID: 0}
-    - target: {fileID: 61055928594087590, guid: 2ea1095ce08f63d4eb684860d73d06a1,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 61055928594087590, guid: 2ea1095ce08f63d4eb684860d73d06a1,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 61055928594087590, guid: 2ea1095ce08f63d4eb684860d73d06a1,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 2.1308575
-      objectReference: {fileID: 0}
-    - target: {fileID: 61055928594087590, guid: 2ea1095ce08f63d4eb684860d73d06a1,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: 0.056119442
-      objectReference: {fileID: 0}
-    - target: {fileID: 61055928594087590, guid: 2ea1095ce08f63d4eb684860d73d06a1,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 0.9613085
-      objectReference: {fileID: 0}
-    - target: {fileID: 4067497150083538, guid: 2ea1095ce08f63d4eb684860d73d06a1, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 114722211293569322, guid: 2ea1095ce08f63d4eb684860d73d06a1,
-        type: 2}
-      propertyPath: JumpHeight
-      value: 9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ea1095ce08f63d4eb684860d73d06a1, type: 2}
   m_IsPrefabParent: 0
@@ -303,23 +258,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1915147610016376, guid: 2ea1095ce08f63d4eb684860d73d06a1,
     type: 2}
   m_PrefabInternal: {fileID: 150015458}
---- !u!95 &150015467
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 150015459}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 456a63d9e1bbd9b4fbed2064a7cd56f2, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!4 &179033702 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4456492185401694, guid: 018e127fe9d8655428f5b78e9def27f1,
@@ -385,7 +323,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4271332312762464, guid: 300cfb901e3ca6b41a3805ff1f5ef140, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.26
+      value: -0.96
       objectReference: {fileID: 0}
     - target: {fileID: 4271332312762464, guid: 300cfb901e3ca6b41a3805ff1f5ef140, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1712,31 +1650,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 82328147039323394, guid: 4d1fad9dce06c2441a90c63d60693737,
-        type: 2}
-      propertyPath: m_Volume
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114020998391685570, guid: 4d1fad9dce06c2441a90c63d60693737,
-        type: 2}
-      propertyPath: jump
-      value: 
-      objectReference: {fileID: 8300000, guid: e37bf3c5a54a9f84581857f5a5fdfb81, type: 3}
-    - target: {fileID: 114020998391685570, guid: 4d1fad9dce06c2441a90c63d60693737,
-        type: 2}
-      propertyPath: pickingbox
-      value: 
-      objectReference: {fileID: 8300000, guid: 530084e87c5a28d41a8c6bfcf88ef540, type: 3}
-    - target: {fileID: 114020998391685570, guid: 4d1fad9dce06c2441a90c63d60693737,
-        type: 2}
-      propertyPath: pizzadelivered
-      value: 
-      objectReference: {fileID: 8300000, guid: feccc7c917543364ea94390d4bcdd983, type: 3}
-    - target: {fileID: 114020998391685570, guid: 4d1fad9dce06c2441a90c63d60693737,
-        type: 2}
-      propertyPath: walk
-      value: 
-      objectReference: {fileID: 8300000, guid: 809c2aa5f81a0ef4a9b837f2e38f852e, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d1fad9dce06c2441a90c63d60693737, type: 2}
   m_IsPrefabParent: 0

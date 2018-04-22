@@ -38,13 +38,12 @@ public class GameManager : MonoBehaviour
 
 
     private int slotCounter = 0;
+    private bool firstEndOfLevel = false;
 
     private void Start()
     {
         if (NextLevelName == null)
             Debug.LogError("GameManager doesnt have next level specified");
-
-
 
         GenerateSlots();
         OnGameModeChange += GameManager_OnGameModeChange;
@@ -58,11 +57,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public AudioSource GetAudioSource()
-    {
-        return GetComponent<AudioSource>();
-    }
-
     private void PlayerZoneDetector_OnEndOfLevelReached(GameObject zone)
     {
         Debug.Log("Switching to new level");
@@ -73,6 +67,14 @@ public class GameManager : MonoBehaviour
     private void PlayerZoneDetector_OnEndZoneReached(GameObject zone)
     {
         zone.GetComponent<SpriteRenderer>().sprite = EndZoneSpriteChange;
+
+        if (!firstEndOfLevel)
+        {
+            var am = FindObjectOfType<AudioManager>();
+            am.PlaySound(am.pizzadelivered);
+            firstEndOfLevel = true;
+        }
+
     }
 
     public void RestartLevel()
