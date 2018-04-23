@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rigid2d;
 
     [Range(.5f, 2f)]
-    public float MovementSpeed = 1f;
+    private float MovementSpeed = 1.5f;
 
     public float JumpHeight = 8f;
 
@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator _playerAnimator;
     private AudioSource _playerAudioSource;
+
+    private bool IsInAir;
 
     public AudioClip JumpSound;
     public AudioClip WalkSound;
@@ -59,10 +61,12 @@ public class PlayerMovement : MonoBehaviour
         //here we are multiplying gravity when player is in air
         if (IsGrounded)
         {
+            IsInAir = false;
             _rigid2d.gravityScale = 1f;
         }
         else
         {
+            IsInAir = true;
             _rigid2d.gravityScale = 1.7f;
         }
     }
@@ -87,6 +91,11 @@ public class PlayerMovement : MonoBehaviour
         if (movement.x != 0f)
         {
             //playwalking
+        }
+
+        if (IsInAir)
+        {
+            //movement.x = movement.x * 2f;
         }
 
         _spriteRenderer.flipX = FlippedX;
