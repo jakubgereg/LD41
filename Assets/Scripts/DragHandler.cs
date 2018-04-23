@@ -87,12 +87,14 @@ public class DragHandler : MonoBehaviour, IPointerClickHandler
         if (IsSelected & !IsPlaced)
         {
             var mousePos = Input.mousePosition;
-
+            PlatformerPlacing.transform.position = XConvertToGridPosition(mousePos);
+            /*
             var pp = XConvertToGridPosition(mousePos);
             var new_posX = Mathf.Round(pp.x / GridSizeX) * GridSizeX;
             var new_posY = Mathf.Round(pp.y / GridSizeY) * GridSizeY;
 
             PlatformerPlacing.transform.position = new Vector3(new_posX, new_posY, pp.z);
+            */
         }
 
     }
