@@ -11,7 +11,7 @@ public class DragHandler : MonoBehaviour, IPointerClickHandler
     private Transform startParent;
 
     public GameObject toSpawn;
-    public GameObject PlatformerPlacing;
+    private GameObject PlatformerPlacing;
 
     private AudioManager _am;
     private ZoneDetect _zd;
