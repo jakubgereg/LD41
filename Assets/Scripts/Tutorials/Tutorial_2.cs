@@ -39,7 +39,7 @@ public class Tutorial_2 : MonoBehaviour
     {
         if (gm.Equals(GameModes.BUILDING))
         {
-            text.text = "Here you can drag and drop the cube\nIt will help you to jump higher!\n";
+            text.text = "Here you can drag\nand drop the cube\nIt will help you to jump higher!";
         }
         else
         {
