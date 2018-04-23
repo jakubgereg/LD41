@@ -7,6 +7,9 @@ public class ZoneDetect : MonoBehaviour
     //do not use only for inspector
     public bool IsEndZoneReached;
     public bool IsEndOfLevelReached;
+    public Sprite hearthSprite;
+    public float hearthEffectSpeed;
+    public float hearthEffectDuration;
 
     public delegate void EndZoneReached(GameObject zone);
     public event EndZoneReached OnEndZoneReached;
@@ -20,6 +23,7 @@ public class ZoneDetect : MonoBehaviour
         {
             if (attr.isEndZone && !IsEndOfLevelReached)
             {
+                createHearthEffect();
                 IsEndZoneReached = true;
                 if (OnEndZoneReached != null)
                     OnEndZoneReached(attr.gameObject);
@@ -29,11 +33,24 @@ public class ZoneDetect : MonoBehaviour
                 //if we are not at the end but we already reached end
                 if (IsEndZoneReached)
                 {
+                    
                     if (OnEndOfLevelReached != null)
                         OnEndOfLevelReached(attr.gameObject);
                 }
             }
 
         }
+    }
+
+    void createHearthEffect()
+    {
+        GameObject o = new GameObject();
+        o.AddComponent<SpriteRenderer>().sprite = hearthSprite;
+        OnZoneHearthEffect hearth = o.AddComponent<OnZoneHearthEffect>();
+        hearth.hearthDuration = hearthEffectDuration;
+        hearth.hearthSpeed = hearthEffectSpeed;
+
+        o.transform.position = transform.position;
+
     }
 }

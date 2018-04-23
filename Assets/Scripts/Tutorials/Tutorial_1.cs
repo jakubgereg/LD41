@@ -4,6 +4,7 @@ public class Tutorial_1 : MonoBehaviour
 {
 
     public TextMesh text;
+    public string backToCarText;
 
     private void Start()
     {
@@ -14,7 +15,7 @@ public class Tutorial_1 : MonoBehaviour
 
     private void Gm_OnEndZoneReached(GameObject zone)
     {
-        text.text = "Now get back to your car! Next delivery awaits!";
+        text.text = backToCarText;
     }
 
 

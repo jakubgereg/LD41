@@ -241,6 +241,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsEndZoneReached: 0
   IsEndOfLevelReached: 0
+  hearthSprite: {fileID: 21300000, guid: 73e4770254effe04b935e7e05b8998b7, type: 3}
+  hearthEffectSpeed: 3
+  hearthEffectDuration: 2
 --- !u!114 &114722211293569322
 MonoBehaviour:
   m_ObjectHideFlags: 1
