@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/2.unity
     guid: 98cfb2180c1dad24fbd9dd708e090f1c
   - enabled: 1
-    path: Assets/Scenes/2 - Copy.unity
-    guid: fa24c19d2a756ce46ae94e42807f75e6
-  - enabled: 1
     path: Assets/Scenes/3.unity
     guid: 1c1618073c4a9a34896981f448bbce52
   - enabled: 1

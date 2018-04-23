@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip JumpSound;
     public AudioClip WalkSound;
 
+    private bool isJumping = false;
+
     float defaultGravityValue;
 
     void Start()
@@ -38,6 +40,35 @@ public class PlayerMovement : MonoBehaviour
     //error here in detecting ground :(
 
 
+    private void Update()
+    {
+        IsGrounded = groundCheck.CheckIsGrounded();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("jumped:" + IsGrounded);
+
+            if (IsGrounded)
+            {
+                isJumping = true;
+                _playerAudioSource.clip = JumpSound;
+                _playerAudioSource.Play();
+                IsGrounded = false;
+                rigid.AddForce(Vector3.up * jumpSpeed, ForceMode2D.Impulse);
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+
+        if (!IsGrounded)
+        {
+            rigid.gravityScale += gravityJumpModifier * Time.deltaTime;
+        }
+        else
+            rigid.gravityScale = defaultGravityValue;
+    }
 
     void FixedUpdate()
     {
@@ -57,23 +88,5 @@ public class PlayerMovement : MonoBehaviour
             FlippedX = false;
         }
         sr.flipX = FlippedX;
-
-        IsGrounded = groundCheck.CheckIsGrounded();
-
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
-        {
-            _playerAudioSource.clip = JumpSound;
-            _playerAudioSource.Play();
-            IsGrounded = false;
-            rigid.AddForce(Vector3.up * jumpSpeed, ForceMode2D.Impulse);
-            //rigid.velocity = new Vector2(rigid.velocity.x, JumpHeight);
-        }
-
-        if (!IsGrounded)
-        {
-            rigid.gravityScale += gravityJumpModifier * Time.deltaTime;
-        }
-        else
-            rigid.gravityScale = defaultGravityValue;
     }
 }
