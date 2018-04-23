@@ -15,6 +15,7 @@ public class ZoneDetect : MonoBehaviour
     public event EndZoneReached OnEndZoneReached;
     public event EndZoneReached OnEndOfLevelReached;
 
+    bool hearted = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,6 +45,8 @@ public class ZoneDetect : MonoBehaviour
 
     void createHearthEffect()
     {
+        if (hearted)
+            return;
         GameObject o = new GameObject();
         o.AddComponent<SpriteRenderer>().sprite = hearthSprite;
         OnZoneHearthEffect hearth = o.AddComponent<OnZoneHearthEffect>();
@@ -51,6 +54,7 @@ public class ZoneDetect : MonoBehaviour
         hearth.hearthSpeed = hearthEffectSpeed;
 
         o.transform.position = transform.position;
+        hearted = true;
 
     }
 }
