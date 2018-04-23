@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DragHandler : MonoBehaviour, IPointerClickHandler
 {
     public static GameObject itemDragged;
 
@@ -21,127 +21,134 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         _am = FindObjectOfType<AudioManager>();
     }
 
-    //origin needs to be world position
-    private GameObject InstantianteGameObject(Vector2 origin)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        //disable boxCollider if not placed
-        toSpawn.GetComponent<BoxCollider2D>().enabled = false;
-        toSpawn.transform.position = origin;
-        toSpawn.SetActive(true);
-        return Instantiate(toSpawn);
-    }
-
-    private Vector3 GetWorldPosition(Vector2 origin)
-    {
-        var pos = Camera.main.ScreenToWorldPoint(origin);
-        Vector3 newpost = new Vector3(pos.x, pos.y, -1);
-
-        return newpost;
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        itemDragged = toSpawn;
-
-
-        startPosition = transform.position;
-        startPostWorld = GetWorldPosition(transform.position);
-
-        placing = InstantianteGameObject(startPostWorld);
-        placing_color = placing.GetComponent<SpriteRenderer>().color;
-
-        startParent = transform.parent;
-    }
-
-    private bool IsPlacible()
-    {
-        var distance = placing.transform.position.y - startPostWorld.y;
-
-        if (distance > -1f)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-
-
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        placing.transform.position = XConvertToGridPosition(Input.mousePosition);
-    }
-
-    //this is not working as i wanted when camera is moving grid is useless
-    private Vector3 XConvertToGridPosition(Vector3 input)
-    {
-        Vector3 result;
-
-        var wp = Camera.main.ScreenToWorldPoint(input);
-
-        result = new Vector3(wp.x, wp.y, -1);
-
-        return result;
-
+        Debug.Log("clicked");
     }
 
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        itemDragged = null;
 
-        var distance = placing.transform.position.y - startPostWorld.y;
+    ////origin needs to be world position
+    //private GameObject InstantianteGameObject(Vector2 origin)
+    //{
+    //    //disable boxCollider if not placed
+    //    toSpawn.GetComponent<BoxCollider2D>().enabled = false;
+    //    toSpawn.transform.position = origin;
+    //    toSpawn.SetActive(true);
+    //    return Instantiate(toSpawn);
+    //}
 
-        //0 1 2 if you cannot place it
-        if (!IsPlacible())
-        {
-            Destroy(placing);
-            placing = null;
-            //_as.clip = failPick;
-            _am.PlaySound(_am.failerPlacedBox);
-            //destroy object
-        }
-        else
-        {
-            if (transform.parent == startParent)
-            {
-                transform.position = startPosition;
-            }
-            placing.GetComponent<BoxCollider2D>().enabled = true;
+    //private Vector3 GetWorldPosition(Vector2 origin)
+    //{
+    //    var pos = Camera.main.ScreenToWorldPoint(origin);
+    //    Vector3 newpost = new Vector3(pos.x, pos.y, -1);
 
-            //_as.clip = succesPick;
-            _am.PlaySound(_am.succesPlacedBox);
+    //    return newpost;
+    //}
 
-            Destroy(gameObject);
-        }
-
-    }
+    //public void OnBeginDrag(PointerEventData eventData)
+    //{
+    //    itemDragged = toSpawn;
 
 
-    //hm not using this one
-    public void POnDrop(PointerEventData eventData)
-    {
-        startParent = null;
-        placing.transform.position = eventData.position;
+    //    startPosition = transform.position;
+    //    startPostWorld = GetWorldPosition(transform.position);
+
+    //    placing = InstantianteGameObject(startPostWorld);
+    //    placing_color = placing.GetComponent<SpriteRenderer>().color;
+
+    //    startParent = transform.parent;
+    //}
+
+    //private bool IsPlacible()
+    //{
+    //    var distance = placing.transform.position.y - startPostWorld.y;
+
+    //    if (distance > -1f)
+    //    {
+    //        return false;
+    //    }
+    //    else
+    //    {
+    //        return true;
+    //    }
 
 
-        //how far you are dropping it
-        var distance = Mathf.Abs(placing.transform.position.y - startPosition.y);
+    //}
 
-        if (distance < 50)
-        {
-            Debug.Log("destroy");
-            placing.transform.position = startPosition;
-            Destroy(placing);
-            return;
-        }
+    //public void OnDrag(PointerEventData eventData)
+    //{
+    //    placing.transform.position = XConvertToGridPosition(Input.mousePosition);
+    //}
 
-        //var np = eventData.position;
+    ////this is not working as i wanted when camera is moving grid is useless
+    //private Vector3 XConvertToGridPosition(Vector3 input)
+    //{
+    //    Vector3 result;
+
+    //    var wp = Camera.main.ScreenToWorldPoint(input);
+
+    //    result = new Vector3(wp.x, wp.y, -1);
+
+    //    return result;
+
+    //}
+
+
+    //public void OnEndDrag(PointerEventData eventData)
+    //{
+    //    itemDragged = null;
+
+    //    var distance = placing.transform.position.y - startPostWorld.y;
+
+    //    //0 1 2 if you cannot place it
+    //    if (!IsPlacible())
+    //    {
+    //        Destroy(placing);
+    //        placing = null;
+    //        //_as.clip = failPick;
+    //        _am.PlaySound(_am.failerPlacedBox);
+    //        //destroy object
+    //    }
+    //    else
+    //    {
+    //        if (transform.parent == startParent)
+    //        {
+    //            transform.position = startPosition;
+    //        }
+    //        placing.GetComponent<BoxCollider2D>().enabled = true;
+
+    //        //_as.clip = succesPick;
+    //        _am.PlaySound(_am.succesPlacedBox);
+
+    //        Destroy(gameObject);
+    //    }
+
+    //}
+
+
+    ////hm not using this one
+    //public void POnDrop(PointerEventData eventData)
+    //{
+    //    startParent = null;
+    //    placing.transform.position = eventData.position;
+
+
+    //    //how far you are dropping it
+    //    var distance = Mathf.Abs(placing.transform.position.y - startPosition.y);
+
+    //    if (distance < 50)
+    //    {
+    //        Debug.Log("destroy");
+    //        placing.transform.position = startPosition;
+    //        Destroy(placing);
+    //        return;
+    //    }
+
+    //    //var np = eventData.position;
 
 
 
-        Destroy(gameObject);
-    }
+    //    Destroy(gameObject);
+    //}
 }
