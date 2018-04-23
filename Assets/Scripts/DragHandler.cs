@@ -3,40 +3,86 @@ using UnityEngine.EventSystems;
 
 public class DragHandler : MonoBehaviour, IPointerClickHandler
 {
-    public static GameObject itemDragged;
+    public static GameObject UIObject;
 
     private Vector3 startPosition;
-    private Vector3 startPostWorld;
 
     private Transform startParent;
 
     public GameObject toSpawn;
-    private GameObject placing;
-    private Color placing_color;
+    public GameObject PlatformerPlacing;
 
     private AudioManager _am;
+
+    public bool IsSelected = false;
+    public bool IsPlaced = false;
 
     void Start()
     {
         _am = FindObjectOfType<AudioManager>();
+        startPosition = transform.position;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("clicked");
+
+        if (!IsSelected)
+        {
+            IsSelected = true;
+            if (!PlatformerPlacing)
+                PlatformerPlacing = InstantianteGameObject(startPosition);
+
+            var platformPlacer = PlatformerPlacing.GetComponent<PlatformPlacer>();
+
+            if (IsPlaced)
+            {
+                IsPlaced = false;
+                platformPlacer.IsPlaced = false;
+            }
+            platformPlacer.OnPlatformPlacer += DragHandler_OnPlatformPlacer;
+
+        }
+        else
+        {
+            IsSelected = false;
+            IsPlaced = false;
+        }
+    }
+
+    private void DragHandler_OnPlatformPlacer()
+    {
+        Debug.Log("placing");
+        SetPlatformerPlaced();
+    }
+
+    private void SetPlatformerPlaced()
+    {
+        IsSelected = false;
+        IsPlaced = true;
+        PlatformerPlacing.GetComponent<BoxCollider2D>().enabled = true;
+    }
+
+    void Update()
+    {
+        if (IsSelected & !IsPlaced)
+        {
+            var mousePos = Input.mousePosition;
+            PlatformerPlacing.transform.position = XConvertToGridPosition(mousePos);
+        }
+
     }
 
 
 
     ////origin needs to be world position
-    //private GameObject InstantianteGameObject(Vector2 origin)
-    //{
-    //    //disable boxCollider if not placed
-    //    toSpawn.GetComponent<BoxCollider2D>().enabled = false;
-    //    toSpawn.transform.position = origin;
-    //    toSpawn.SetActive(true);
-    //    return Instantiate(toSpawn);
-    //}
+    private GameObject InstantianteGameObject(Vector2 origin)
+    {
+        //disable boxCollider if not placed
+        toSpawn.GetComponent<BoxCollider2D>().enabled = false;
+        toSpawn.transform.position = origin;
+        toSpawn.SetActive(true);
+        return Instantiate(toSpawn);
+    }
 
     //private Vector3 GetWorldPosition(Vector2 origin)
     //{
@@ -82,17 +128,17 @@ public class DragHandler : MonoBehaviour, IPointerClickHandler
     //}
 
     ////this is not working as i wanted when camera is moving grid is useless
-    //private Vector3 XConvertToGridPosition(Vector3 input)
-    //{
-    //    Vector3 result;
+    private Vector3 XConvertToGridPosition(Vector3 input)
+    {
+        Vector3 result;
 
-    //    var wp = Camera.main.ScreenToWorldPoint(input);
+        var wp = Camera.main.ScreenToWorldPoint(input);
 
-    //    result = new Vector3(wp.x, wp.y, -1);
+        result = new Vector3(wp.x, wp.y, -1);
 
-    //    return result;
+        return result;
 
-    //}
+    }
 
 
     //public void OnEndDrag(PointerEventData eventData)
