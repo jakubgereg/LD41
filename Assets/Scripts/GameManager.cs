@@ -30,14 +30,9 @@ public class GameManager : MonoBehaviour
     public GameObject BuildingPhasePanel;
     public GameObject SlotPrefab;
 
-    [Header("Zones")]
-    public Sprite EndZoneSpriteChange;
-
     private PlayerInventory playerInventory;
     private ZoneDetect playerZoneDetector;
 
-
-    private int slotCounter = 0;
     private bool firstEndOfLevel = false;
 
     private bool BuildModeDisabled = false;
@@ -68,7 +63,6 @@ public class GameManager : MonoBehaviour
 
     private void PlayerZoneDetector_OnEndZoneReached(GameObject zone)
     {
-        zone.GetComponent<SpriteRenderer>().sprite = EndZoneSpriteChange;
 
         if (!firstEndOfLevel)
         {
