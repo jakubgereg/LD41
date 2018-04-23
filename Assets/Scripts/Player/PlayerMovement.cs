@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public float MovementSpeed;
     public float maxSpeed;
 
-    public float JumpHeight = 8f;
+    public float jumpSpeed = 8f;
+    public float gravityJumpModifier;
 
     public GroundCheck groundCheck;
     public bool IsGrounded = false;
@@ -22,11 +23,15 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip JumpSound;
     public AudioClip WalkSound;
 
+    float defaultGravityValue;
+
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         _playerAudioSource = GetComponent<AudioSource>();
+
+        defaultGravityValue = rigid.gravityScale;
 
     }
 
@@ -60,8 +65,15 @@ public class PlayerMovement : MonoBehaviour
             _playerAudioSource.clip = JumpSound;
             _playerAudioSource.Play();
             IsGrounded = false;
-            rigid.AddForce(new Vector2(0, JumpHeight), ForceMode2D.Impulse);
+            rigid.AddForce(Vector3.up * jumpSpeed, ForceMode2D.Impulse);
             //rigid.velocity = new Vector2(rigid.velocity.x, JumpHeight);
         }
+
+        if (!IsGrounded)
+        {
+            rigid.gravityScale += gravityJumpModifier * Time.deltaTime;
+        }
+        else
+            rigid.gravityScale = defaultGravityValue;
     }
 }

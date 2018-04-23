@@ -17,7 +17,7 @@ public class Zones : MonoBehaviour
     //if end zone reached show arrow above start zone (end of level zone)
     private void PlayerZoneDetector_OnEndZoneReached(GameObject zone)
     {
-        GetComponent<SpriteRenderer>().enabled = true;
+        //GetComponent<SpriteRenderer>().enabled = true;
     }
 
     public bool isEndZone;

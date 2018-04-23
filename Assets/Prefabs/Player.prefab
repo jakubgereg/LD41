@@ -94,7 +94,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &61055928594087590
 BoxCollider2D:
@@ -254,7 +254,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 100
   maxSpeed: 5
-  JumpHeight: 10
+  jumpSpeed: 10
+  gravityJumpModifier: 5
   groundCheck: {fileID: 114254813807023898}
   IsGrounded: 0
   JumpSound: {fileID: 0}
