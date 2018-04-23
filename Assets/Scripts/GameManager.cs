@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
     private int slotCounter = 0;
     private bool firstEndOfLevel = false;
 
+    private bool BuildModeDisabled = false;
+
     private void Start()
     {
         if (NextLevelName == null)
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour
             var am = FindObjectOfType<AudioManager>();
             am.PlaySound(am.pizzadelivered);
             firstEndOfLevel = true;
+            BuildModeDisabled = true;
         }
 
     }
@@ -98,6 +101,9 @@ public class GameManager : MonoBehaviour
 
     public bool AreSlotsFull()
     {
+        //cannot pick more when build mode is disabled
+        if (BuildModeDisabled) return true;
+
         if (GetOccupiedSlotCounter() >= maxInventorySlots)
         {
             return true;

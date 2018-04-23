@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212800253927069634}
   - component: {fileID: 61595838245979944}
   - component: {fileID: 50962340915460588}
+  - component: {fileID: 114022976764854640}
   m_Layer: 8
   m_Name: RedGameBox
   m_TagString: Ground
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1338837240025112}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.041737, y: 9.425218, z: -1}
+  m_LocalPosition: {x: -351, y: -368, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -87,6 +88,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114022976764854640
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1338837240025112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 482f93c8c3f08db47bdf83f92804d678, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsPlaced: 0
 --- !u!212 &212800253927069634
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DragHandler : MonoBehaviour, IPointerClickHandler
 {
@@ -13,18 +14,30 @@ public class DragHandler : MonoBehaviour, IPointerClickHandler
     public GameObject PlatformerPlacing;
 
     private AudioManager _am;
+    private ZoneDetect _zd;
 
     public bool IsSelected = false;
     public bool IsPlaced = false;
+    public bool IsDisabled = false;
 
     void Start()
     {
         _am = FindObjectOfType<AudioManager>();
         startPosition = transform.position;
+        _zd = FindObjectOfType<ZoneDetect>();
+        _zd.OnEndZoneReached += _zd_OnEndZoneReached;
+    }
+
+    private void _zd_OnEndZoneReached(GameObject zone)
+    {
+        IsDisabled = true;
+        gameObject.GetComponent<Image>().color = Color.gray;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (IsDisabled) return;
+
 
         if (!IsSelected)
         {
@@ -36,6 +49,7 @@ public class DragHandler : MonoBehaviour, IPointerClickHandler
 
             if (IsPlaced)
             {
+                gameObject.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
                 IsPlaced = false;
                 platformPlacer.IsPlaced = false;
             }
@@ -51,12 +65,12 @@ public class DragHandler : MonoBehaviour, IPointerClickHandler
 
     private void DragHandler_OnPlatformPlacer()
     {
-        Debug.Log("placing");
         SetPlatformerPlaced();
     }
 
     private void SetPlatformerPlaced()
     {
+        gameObject.GetComponent<RectTransform>().localScale = new Vector3(.5f, .5f, 1f);
         IsSelected = false;
         IsPlaced = true;
         PlatformerPlacing.GetComponent<BoxCollider2D>().enabled = true;
@@ -64,6 +78,8 @@ public class DragHandler : MonoBehaviour, IPointerClickHandler
 
     void Update()
     {
+        if (IsDisabled) return;
+
         if (IsSelected & !IsPlaced)
         {
             var mousePos = Input.mousePosition;
